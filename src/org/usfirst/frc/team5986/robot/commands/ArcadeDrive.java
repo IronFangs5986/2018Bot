@@ -13,8 +13,7 @@ public ArcadeDrive() {
 }
 
 protected void execute() {
-	System.out.println(Robot.oi.joystick1.getRawAxis(1)+" "+Robot.oi.joystick1.getRawAxis(4));
-	Robot.driveTrain.arcadeDrive(Robot.oi.joystick1.getRawAxis(1), Robot.oi.joystick1.getRawAxis(4));
+	Robot.driveTrain.arcadeDrive(Robot.oi.joystick1);
 }
 	@Override
 	protected boolean isFinished() {

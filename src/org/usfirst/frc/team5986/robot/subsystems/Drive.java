@@ -1,6 +1,7 @@
 package org.usfirst.frc.team5986.robot.subsystems;
 
 import org.usfirst.frc.team5986.robot.RobotMap;
+import org.usfirst.frc.team5986.robot.commands.ArcadeDrive;
 import org.usfirst.frc.team5986.robot.util.paths.Path;
 
 import jaci.pathfinder.Pathfinder;
@@ -17,10 +18,10 @@ public class Drive extends Subsystem {
 	@Override
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
-		
+		setDefaultCommand(new ArcadeDrive());
 	}
-public void arcadeDrive(Double x, Double y) {
-	robotDrive.arcadeDrive(x, y);
+public void arcadeDrive(Joystick joystick) {
+	robotDrive.arcadeDrive(joystick);
 }
 public void followPath() {
 	
