@@ -1,5 +1,6 @@
 package org.usfirst.frc.team5986.robot.subsystems;
 
+import org.usfirst.frc.team5986.robot.Robot;
 import org.usfirst.frc.team5986.robot.RobotMap;
 import org.usfirst.frc.team5986.robot.commands.ArcadeDrive;
 import org.usfirst.frc.team5986.robot.commands.ElevatorMove;
@@ -22,6 +23,9 @@ public class Elevator extends Subsystem {
 		setDefaultCommand(new ElevatorMove());
 	}
 	public void move(double speed) {
+		if (Robot.oi.joystick2.getRawButton(3)) {
+			elevatorSpeed = -.2;
+		} else {
 		if (Math.abs(speed) < elevatorDeadZone) {
 			elevatorSpeed = 0;
 			/*if (Math.abs(Driver.getRawAxis(5)) < intakeDeadZone) {
@@ -33,6 +37,8 @@ public class Elevator extends Subsystem {
 			System.out.println(elevatorSpeed);
 			//intakeSpeedR = -.2;
 			//intakeSpeedL = .2;
+			Robot.intake.speed(.2);
+		}
 		}
 		elevatorLeft.set(ControlMode.PercentOutput, elevatorSpeed);
 		elevatorRight.set(ControlMode.PercentOutput, elevatorSpeed * -1);
