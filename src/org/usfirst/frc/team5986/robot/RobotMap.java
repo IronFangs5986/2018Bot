@@ -64,6 +64,7 @@ public class RobotMap {
     
     public static final double sensitivity = 0.2;
     public static final double elevatorDeadZone = 0.2;
+    public static final double shifterDeadZone = .75;
 	public static void init() {
 		
 		FrontLeftMotor = new WPI_TalonSRX(2); //Define front left drive motor
