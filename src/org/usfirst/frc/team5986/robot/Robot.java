@@ -21,6 +21,7 @@ import org.usfirst.frc.team5986.robot.commands.AutonomousSelector.Goal;
 import org.usfirst.frc.team5986.robot.commands.AutonomousSelector.StartingPosition;
 import org.usfirst.frc.team5986.robot.subsystems.Claw;
 import org.usfirst.frc.team5986.robot.subsystems.Drive;
+import org.usfirst.frc.team5986.robot.subsystems.Elevator;
 import org.usfirst.frc.team5986.robot.subsystems.Intake;
 import org.usfirst.frc.team5986.robot.subsystems.IntakeDrop;
 import org.usfirst.frc.team5986.robot.subsystems.Shifters;
@@ -44,6 +45,7 @@ public class Robot extends IterativeRobot {
 	public static Claw claw;
 	public static IntakeDrop intakeDrop;
 	public static Shifters shifters;
+	public static Elevator elevator;
 	
 	private SendableChooser<StartingPosition> stposChooser;
 	private SendableChooser<Goal> goalChooser;
@@ -64,6 +66,7 @@ public class Robot extends IterativeRobot {
 		claw = new Claw();
 		intakeDrop = new IntakeDrop();
 		shifters = new Shifters();
+		elevator = new Elevator();
 		oi = new OI();
 		
 		//NetworkTable table = NetworkTable.getTable("SmartDashboard");
