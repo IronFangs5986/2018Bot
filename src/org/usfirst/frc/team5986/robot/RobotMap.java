@@ -58,8 +58,8 @@ public class RobotMap {
 	public static Compressor compressor;
 	
 	//Initialize encoders and information
-	public static Encoder encoderRight;
-    public static Encoder encoderLeft;
+	public static Encoder rightEncoder;
+    public static Encoder leftEncoder;
     public static double tinch = 19.6437;
     
     public static final double sensitivity = 0.2;
@@ -93,16 +93,16 @@ public class RobotMap {
 		compressor  = new Compressor(0); //Define compressor
 		
 		//Set up right encoder
-		encoderRight = new Encoder(0, 1, true, Encoder.EncodingType.k4X);
-        encoderRight.setPIDSourceType(PIDSourceType.kDisplacement);
-        encoderRight.setDistancePerPulse(1.0 / tinch);
-        encoderRight.reset();
+		rightEncoder = new Encoder(0, 1, true, Encoder.EncodingType.k4X);
+        rightEncoder.setPIDSourceType(PIDSourceType.kDisplacement);
+        rightEncoder.setDistancePerPulse(1.0 / tinch);
+        rightEncoder.reset();
         
         //Set up left encoder
-        encoderLeft = new Encoder(2, 3, false, Encoder.EncodingType.k4X);
-        encoderLeft.setPIDSourceType(PIDSourceType.kDisplacement);
-        encoderLeft.setDistancePerPulse(1.0 / tinch);
-        encoderLeft.reset();
+        leftEncoder = new Encoder(2, 3, false, Encoder.EncodingType.k4X);
+        leftEncoder.setPIDSourceType(PIDSourceType.kDisplacement);
+        leftEncoder.setDistancePerPulse(1.0 / tinch);
+        leftEncoder.reset();
         
 		//Set up camera
         UsbCamera server = CameraServer.getInstance().startAutomaticCapture();
@@ -110,10 +110,10 @@ public class RobotMap {
 		server.setFPS(30);
 	}
 	public Encoder getEncoderRight(){ //Get right encoder information
-    	return encoderRight;
+    	return rightEncoder;
     }
     
     public Encoder geetEncoderLeft(){ //Get left encoder information
-    	return encoderLeft;
+    	return leftEncoder;
     }
 }

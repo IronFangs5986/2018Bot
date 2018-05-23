@@ -1,5 +1,6 @@
 package org.usfirst.frc.team5986.robot.subsystems;
 
+import org.usfirst.frc.team5986.robot.Robot;
 import org.usfirst.frc.team5986.robot.RobotMap;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import org.usfirst.frc.team5986.robot.commands.*;
@@ -11,7 +12,8 @@ public class Intake extends Subsystem{
 	private final WPI_TalonSRX inRight = RobotMap.inRight;
 	private final double intakeDeadZone = RobotMap.intakeDeadZone;
 	private final double intakeMaxSpeed = RobotMap.intakeMaxSpeed;
-			
+	//boolean elevatorIsMoving = Elevator.elevatorIsMoving;
+	double intakeSpeed;	
 	@Override
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
@@ -19,14 +21,25 @@ public class Intake extends Subsystem{
 	}
 
 	public void speed(double speed) {
-		if (speed > intakeDeadZone) {
-			if (speed > intakeMaxSpeed) {
-				inLeft.set(intakeMaxSpeed * -1);
-				inRight.set(intakeMaxSpeed);		
+		boolean elevatorIsMoving = Elevator.isElevatorMoving();
+		System.out.println("From intake: "+elevatorIsMoving);
+	if (elevatorIsMoving) {
+		intakeSpeed = .2;
+	} else {
+		if (Math.abs(speed) < intakeDeadZone) {
+		intakeSpeed = 0;	
+		} else {
+		
+			if (Math.abs(speed) > intakeMaxSpeed) {
+				intakeSpeed = intakeMaxSpeed;		
 			} else {
-			inLeft.set(speed * -1);
-			inRight.set(speed);	
+			intakeSpeed = speed;
 			}
-		}
+		
     }
+		
+	}
+	inLeft.set(intakeSpeed * -1);
+	inRight.set(intakeSpeed);
+	}
 }

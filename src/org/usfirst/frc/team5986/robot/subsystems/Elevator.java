@@ -15,6 +15,7 @@ public class Elevator extends Subsystem {
 	private final WPI_TalonSRX elevatorLeft = RobotMap.elevatorLeft;
 	private final WPI_TalonSRX elevatorRight = RobotMap.elevatorRight;
 	private final double elevatorDeadZone = RobotMap.elevatorDeadZone;
+	public static boolean elevatorIsMoving = false;
 	double elevatorSpeed;
 
 	@Override
@@ -28,6 +29,7 @@ public class Elevator extends Subsystem {
 		} else {
 		if (Math.abs(speed) < elevatorDeadZone) {
 			elevatorSpeed = 0;
+			elevatorIsMoving = false;
 			/*if (Math.abs(Driver.getRawAxis(5)) < intakeDeadZone) {
 				intakeSpeedL = 0;
 				intakeSpeedR = 0;
@@ -35,12 +37,21 @@ public class Elevator extends Subsystem {
 		} else {
 			elevatorSpeed = speed;
 			System.out.println(elevatorSpeed);
+			elevatorIsMoving = true;
 			//intakeSpeedR = -.2;
 			//intakeSpeedL = .2;
-			Robot.intake.speed(.2);
+			//Robot.intake.speed(.2);
 		}
 		}
 		elevatorLeft.set(ControlMode.PercentOutput, elevatorSpeed);
 		elevatorRight.set(ControlMode.PercentOutput, elevatorSpeed * -1);
+		System.out.println("From elevator: "+elevatorIsMoving);
+	}
+	public static boolean isElevatorMoving() {
+		if (elevatorIsMoving) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }

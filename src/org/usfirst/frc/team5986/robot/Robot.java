@@ -156,8 +156,8 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		SmartDashboard.putNumber("encoder value right", (RobotMap.encoderRight.get()));
-        SmartDashboard.putNumber("encoder value left",  (RobotMap.encoderLeft.get()));
+		SmartDashboard.putNumber("encoder value right", (RobotMap.rightEncoder.get()));
+        SmartDashboard.putNumber("encoder value left",  (RobotMap.leftEncoder.get()));
 	}
 
 	/**
