@@ -36,8 +36,8 @@ import org.usfirst.frc.team5986.robot.subsystems.Shifters;
 public class Robot extends IterativeRobot {
 	
 	Command autonomousCommand;
-	Command AutoStraight;
 	Command autoCommand;
+	Command AutoStraight;
 	
 	public static OI oi;
 	public static Intake intake;
@@ -47,8 +47,9 @@ public class Robot extends IterativeRobot {
 	public static Shifters shifters;
 	public static Elevator elevator;
 	
-	private SendableChooser<StartingPosition> stposChooser;
-	private SendableChooser<Goal> goalChooser;
+	//private SendableChooser<StartingPosition> stposChooser;
+	//private SendableChooser<Goal> goalChooser;
+	SendableChooser<Command> auto = new SendableChooser<>();
 	
 	final String autoStraight = "Straight";
 	String[] autoList = { autoStraight };
@@ -69,27 +70,29 @@ public class Robot extends IterativeRobot {
 		elevator = new Elevator();
 		oi = new OI();
 		
-		//NetworkTable table = NetworkTable.getTable("SmartDashboard");
-		//table.putStringArray("Auto List", autoList);
-
+		NetworkTable table = NetworkTable.getTable("SmartDashboard");
+		table.putStringArray("Auto List", autoList);
+auto = new SendableChooser();
+auto.addDefault("Straight", new AutoStraight());
+SmartDashboard.putData("Auto Modes", auto);
 		// Starting position chooser
-        stposChooser = new SendableChooser<>();
+        /*stposChooser = new SendableChooser<>();
         stposChooser.setName("Starting Position:");
         stposChooser.addDefault("Left", StartingPosition.Left);
         stposChooser.addObject("Center", StartingPosition.Center);
         stposChooser.addObject("Right", StartingPosition.Right);
 
         // Goal chooser
-        goalChooser = new SendableChooser<>();
+        /*goalChooser = new SendableChooser<>();
         goalChooser.setName("Goal:");
         goalChooser.addDefault("Nothing", Goal.Nothing);
         goalChooser.addObject("Baseline", Goal.Baseline);
         goalChooser.addObject("Switch", Goal.Switch);
-        goalChooser.addObject("Scale", Goal.Scale);
+        goalChooser.addObject("Scale", Goal.Scale);*/
 
         // Put the choosers on the smart dashboard
-        SmartDashboard.putData(stposChooser);
-        SmartDashboard.putData(goalChooser);
+        //SmartDashboard.putData(stposChooser);
+        //SmartDashboard.putData(goalChooser);
 	}
 
 	/**
@@ -121,14 +124,16 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 		 // Grab the selected starting position and goal
-        StartingPosition startingPosition = stposChooser.getSelected();
-        Goal goal = goalChooser.getSelected();
+        //StartingPosition startingPosition = stposChooser.getSelected();
+        //Command goal = auto.getSelected();
 
         // Use the selected st. pos. and goal to select an autonomous routine
-        autoCommand = new AutonomousSelector(startingPosition, goal);
+        //autoCommand = new AutonomousSelector(goal);
 
         // Start the autonomous routine
-        autoCommand.start();
+        //autoCommand.start();
+		autonomousCommand = (Command) auto.getSelected();
+		
 	}
 
 	/**

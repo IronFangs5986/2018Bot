@@ -53,8 +53,13 @@ public class Drive extends Subsystem {
 public void arcadeDrive(Joystick joystick) {
 	robotDrive.arcadeDrive(joystick);
 }
-
-
+public void tankDrive(double leftSpeed, double rightSpeed) {
+	robotDrive.tankDrive(leftSpeed, rightSpeed);
+}
+public void stop() {
+	robotDrive.arcadeDrive(0.0, 0.0);
+	robotDrive.tankDrive(0.0, 0.0);
+}
 private void configureEncoders () {
 
     // Set distance per pulse
@@ -71,6 +76,12 @@ public void setRightSpeed (double speed) {
 
 public void setLeftSpeed (double speed) {
     mLeftMaster.set(ControlMode.PercentOutput, speed);
+}
+public double getLeftDistance() {
+	return RobotMap.leftEncoder.getDistance();
+}
+public double getRightDistance() {
+	return RobotMap.rightEncoder.getDistance();
 }
 public double getRightVelocity () {
     return mRightEncoder.getRate();
