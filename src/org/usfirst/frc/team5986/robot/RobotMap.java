@@ -93,15 +93,15 @@ public class RobotMap {
 		compressor  = new Compressor(0); //Define compressor
 		
 		//Set up right encoder
-		rightEncoder = new Encoder(0, 1, true, Encoder.EncodingType.k4X);
+		rightEncoder = new Encoder(0, 1, false, Encoder.EncodingType.k4X);
         rightEncoder.setPIDSourceType(PIDSourceType.kDisplacement);
-        rightEncoder.setDistancePerPulse(1.0 / tinch);
+        rightEncoder.setDistancePerPulse((Constants.kDriveWheelDiameter * Math.PI) / Constants.kEncoderPulsesPerRev);
         rightEncoder.reset();
         
         //Set up left encoder
-        leftEncoder = new Encoder(2, 3, false, Encoder.EncodingType.k4X);
+        leftEncoder = new Encoder(2, 3, true, Encoder.EncodingType.k4X);
         leftEncoder.setPIDSourceType(PIDSourceType.kDisplacement);
-        leftEncoder.setDistancePerPulse(1.0 / tinch);
+        leftEncoder.setDistancePerPulse((Constants.kDriveWheelDiameter * Math.PI) / Constants.kEncoderPulsesPerRev);
         leftEncoder.reset();
         
 		//Set up camera
@@ -109,11 +109,11 @@ public class RobotMap {
 		server.setResolution(320, 240);
 		server.setFPS(30);
 	}
-	public Encoder getEncoderRight(){ //Get right encoder information
+	public static Encoder getEncoderRight(){ //Get right encoder information
     	return rightEncoder;
     }
     
-    public Encoder geetEncoderLeft(){ //Get left encoder information
+    public static Encoder getEncoderLeft(){ //Get left encoder information
     	return leftEncoder;
     }
 }

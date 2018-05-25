@@ -91,8 +91,8 @@ public double getLeftVelocity () {
 }
 public void zeroSensors () {
 
-    mRightEncoder.reset();
-    mLeftEncoder.reset();
+    //mRightEncoder.reset();
+    //mLeftEncoder.reset();
 
 }
 public void reset () {

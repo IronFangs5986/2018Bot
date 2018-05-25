@@ -93,6 +93,8 @@ SmartDashboard.putData("Auto Modes", auto);
         // Put the choosers on the smart dashboard
         //SmartDashboard.putData(stposChooser);
         //SmartDashboard.putData(goalChooser);
+//RobotMap.leftEncoder.start();
+//RobotMap.rightEncoder.start();
 	}
 
 	/**
@@ -133,7 +135,9 @@ SmartDashboard.putData("Auto Modes", auto);
         // Start the autonomous routine
         //autoCommand.start();
 		autonomousCommand = (Command) auto.getSelected();
-		
+		if (autonomousCommand != null) {
+			autonomousCommand.start();
+		}
 	}
 
 	/**
@@ -142,6 +146,10 @@ SmartDashboard.putData("Auto Modes", auto);
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+		double speedl = driveTrain.getLeftDistance();
+		double speedr = driveTrain.getRightDistance();
+		SmartDashboard.putNumber("Left", speedl);
+		SmartDashboard.putNumber("Right", speedr);
 	}
 
 	@Override
@@ -161,8 +169,8 @@ SmartDashboard.putData("Auto Modes", auto);
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		SmartDashboard.putNumber("encoder value right", (RobotMap.rightEncoder.get()));
-        SmartDashboard.putNumber("encoder value left",  (RobotMap.leftEncoder.get()));
+		SmartDashboard.putNumber("encoder value right", (RobotMap.getEncoderRight().getDistance()));
+        SmartDashboard.putNumber("encoder value left",  (RobotMap.getEncoderLeft().getDistance()));
 	}
 
 	/**

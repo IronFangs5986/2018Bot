@@ -12,10 +12,11 @@ double endDistance;
 double botSpeed;
 double leftSpeed;
 double rightSpeed;
+
 public EncoderStraightDrive(double speed, int userFeet, int userInches) {
 	requires(Robot.driveTrain);
 	driveDistance = (userInches + (12 * userFeet));
-	botSpeed = speed;
+	botSpeed = -speed;
 	leftSpeed = botSpeed;
 	rightSpeed = botSpeed;
 }
