@@ -9,7 +9,7 @@ public class AutoStraight extends CommandGroup {
 
 	public AutoStraight() {
 		addSequential(new CloseClaw());
-		addSequential(new EncoderStraightDrive(.7, 11, 0));
+		addSequential(new EncoderStraightDrive(.4, 3, 0));
 		/*addSequential(new WaitCommand(1));
 		addSequential(new OpenClaw());
 		addSequential(new WaitCommand(1));
