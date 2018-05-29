@@ -146,7 +146,7 @@ SmartDashboard.putData("Auto Modes", auto);
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
-		double speedl = driveTrain.getLeftDistance();
+		double speedl = RobotMap.leftEncoder.getDistance();
 		double speedr = driveTrain.getRightDistance();
 		SmartDashboard.putNumber("Left", speedl);
 		SmartDashboard.putNumber("Right", speedr);

@@ -22,7 +22,7 @@ public class Intake extends Subsystem{
 
 	public void speed(double speed) {
 		boolean elevatorIsMoving = Elevator.isElevatorMoving();
-		System.out.println("From intake: "+elevatorIsMoving);
+		//System.out.println("From intake: "+elevatorIsMoving);
 	if (elevatorIsMoving) {
 		intakeSpeed = .2;
 	} else {

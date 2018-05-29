@@ -45,7 +45,7 @@ public class Elevator extends Subsystem {
 		}
 		elevatorLeft.set(ControlMode.PercentOutput, elevatorSpeed);
 		elevatorRight.set(ControlMode.PercentOutput, elevatorSpeed * -1);
-		System.out.println("From elevator: "+elevatorIsMoving);
+		//System.out.println("From elevator: "+elevatorIsMoving);
 	}
 	public static boolean isElevatorMoving() {
 		if (elevatorIsMoving) {
