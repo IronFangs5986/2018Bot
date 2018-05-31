@@ -54,4 +54,18 @@ public class Elevator extends Subsystem {
 			return false;
 		}
 	}
+	public void stop() {
+		elevatorLeft.set(ControlMode.PercentOutput, 0);
+		elevatorRight.set(ControlMode.PercentOutput, 0);	
+	}
+	public void hold() {
+		elevatorLeft.set(ControlMode.PercentOutput, -.2);
+		elevatorRight.set(ControlMode.PercentOutput, .2);
+	}
+	public boolean getMiddle() {
+		return RobotMap.middleSwitch.get();
+	}
+	public boolean getTop() {
+		return RobotMap.topSwitch.get();
+	}
 }

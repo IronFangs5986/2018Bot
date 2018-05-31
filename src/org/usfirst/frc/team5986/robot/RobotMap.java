@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDSourceType;
@@ -62,6 +63,11 @@ public class RobotMap {
     public static Encoder leftEncoder;
     public static double tinch = 19.6437;
     
+    //Initialize Switches
+    public static DigitalInput middleSwitch;
+	public static DigitalInput topSwitch;
+    
+    //Initialize Dead Zones
     public static final double sensitivity = 0.2;
     public static final double elevatorDeadZone = 0.2;
     public static final double shifterDeadZone = .75;
@@ -104,6 +110,10 @@ public class RobotMap {
         leftEncoder.setDistancePerPulse((Constants.kDriveWheelDiameter * Math.PI) / Constants.kEncoderPulsesPerRev);
         leftEncoder.reset();
         
+        //Set up switches
+        middleSwitch = new DigitalInput(4);
+    	topSwitch = new DigitalInput(5);
+    	
 		//Set up camera
         UsbCamera server = CameraServer.getInstance().startAutomaticCapture();
 		server.setResolution(320, 240);

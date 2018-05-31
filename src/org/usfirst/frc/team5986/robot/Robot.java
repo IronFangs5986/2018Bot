@@ -7,6 +7,7 @@
 
 package org.usfirst.frc.team5986.robot;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -34,6 +35,10 @@ import org.usfirst.frc.team5986.robot.subsystems.Shifters;
  * project.
  */
 public class Robot extends IterativeRobot {
+	//DELETE
+	//DigitalInput limitSwitch = new DigitalInput(4);
+	//DigitalInput limitSwitch2 = new DigitalInput(5);
+	//DELETE END
 	
 	Command autonomousCommand;
 	Command autoCommand;
@@ -171,6 +176,8 @@ SmartDashboard.putData("Auto Modes", auto);
 		Scheduler.getInstance().run();
 		SmartDashboard.putNumber("encoder value right", (RobotMap.getEncoderRight().getDistance()));
         SmartDashboard.putNumber("encoder value left",  (RobotMap.getEncoderLeft().getDistance()));
+        //System.out.println("Switch: "+ limitSwitch.get());
+        //System.out.println("Switch: "+ limitSwitch2.get()+"\n\n");
 	}
 
 	/**
