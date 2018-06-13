@@ -22,16 +22,19 @@ public class Intake extends Subsystem{
 
 	public void speed(double speed) {
 		boolean elevatorIsMoving = Elevator.isElevatorMoving();
-		//System.out.println("From intake: "+elevatorIsMoving);
 	if (elevatorIsMoving) {
 		intakeSpeed = .2;
 	} else {
-		if (Math.abs(speed) < intakeDeadZone) {
+		if (Math.abs(speed) < intakeDeadZone) { // .3
 		intakeSpeed = 0;	
 		} else {
 		
-			if (Math.abs(speed) > intakeMaxSpeed) {
-				intakeSpeed = intakeMaxSpeed;		
+			if (Math.abs(speed) > intakeMaxSpeed) { //.7
+				if (speed < 0) {
+					intakeSpeed = -intakeMaxSpeed;
+				} else {
+					intakeSpeed = intakeMaxSpeed;
+				}		
 			} else {
 			intakeSpeed = speed;
 			}

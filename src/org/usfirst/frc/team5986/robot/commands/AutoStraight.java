@@ -23,6 +23,8 @@ public class AutoStraight extends CommandGroup {
 		addSequential(new CloseClaw());
 		addSequential(new WaitCommand(1));
 		addSequential(new EncoderStraightDrive(.7, 3, 0));*/
-		addSequential(new EncoderTurn(45, .7));
+		addSequential(new EncoderTurn(45, 2.5, true));
+		addSequential(new EncoderTurn(60, 2.5, false));
+		addSequential(new EncoderStraightDrive(.7, 5, 0));
 	}
 }

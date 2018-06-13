@@ -73,6 +73,8 @@ public class RobotMap {
     public static final double shifterDeadZone = .75;
     public static final double intakeDeadZone = .3;
     public static final double intakeMaxSpeed = .7;
+    
+    public static final double robotWidth = 15;
 	public static void init() {
 		
 		FrontLeftMotor = new WPI_TalonSRX(2); //Define front left drive motor
