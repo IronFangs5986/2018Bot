@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 
 public class MiddleSwitch extends CommandGroup {
+	int counter = 0;
 
 	public MiddleSwitch(String gameData) {
 		if (gameData.length() > 0) {
@@ -23,9 +24,6 @@ public class MiddleSwitch extends CommandGroup {
 				addSequential(new CloseClaw());
 				addParallel(new ElevatorMoveBottom());
 				addSequential(new EncoderStraightDrive(-.7, 2, 0));
-				addSequential(new EncoderStraightDrive(0, 0, 0));
-				addSequential(new OpenClaw());
-				addSequential(new OpenClaw());
 			} else if (gameData.charAt(0) == 'R') {
 				addSequential(new IntakeDown());
 				addSequential(new WaitCommand(1));
@@ -35,15 +33,23 @@ public class MiddleSwitch extends CommandGroup {
 				addSequential(new EncoderStraightDrive(.7, 6, 2));
 				addParallel(new IntakeUp());
 				addSequential(new EncoderTurn(45, 2.5, false, false));
-				addSequential(new WaitCommand(1));
-				addSequential(new OpenClaw());
-				addSequential(new WaitCommand(.5));
-				addSequential(new CloseClaw());
-				addParallel(new ElevatorMoveBottom());
-				addSequential(new EncoderStraightDrive(-.7, 2, 0));
-				addSequential(new EncoderStraightDrive(0, 0, 0));
-				addSequential(new OpenClaw());
-				addSequential(new OpenClaw());
+				while (counter < 10) {
+					addSequential(new WaitCommand(1));
+					addSequential(new OpenClaw());
+					addSequential(new WaitCommand(.5));
+					addSequential(new CloseClaw());
+					addParallel(new ElevatorMoveBottom());
+					addSequential(new EncoderStraightDrive(-.7, 4, 0));
+					addParallel(new EncoderTurn(90, 2.5, false, false));
+					addParallel(new AutoIntake(-.7));
+					addParallel(new IntakeDown());
+					addSequential(new OpenClaw());
+					addSequential(new MoveUntilGetCube(.7));
+					addParallel(new EncoderTurn(45, 2.5, false, true));
+					addParallel(new ElevatorMiddle(.7));
+					addSequential(new EncoderStraightDrive(.7, 4, 0));
+					counter++;
+				}
 				// addSequential(new EncoderTurn(105, 2.5, false, false));
 				// addParallel(new AutoIntake(-.7));
 				// addParallel(new OpenClaw());
