@@ -75,7 +75,7 @@ public class RobotMap {
 	public static final double elevatorDeadZone = 0.2;
 	public static final double shifterDeadZone = .75;
 	public static final double intakeDeadZone = .3;
-	public static final double intakeMaxSpeed = .7;
+	public static final double intakeMaxSpeed = 1; // .7
 	public static final double cubeProximity = 5;
 	public static final double robotWidth = 15;
 

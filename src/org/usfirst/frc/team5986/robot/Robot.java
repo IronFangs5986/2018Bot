@@ -81,7 +81,7 @@ public class Robot extends IterativeRobot {
 		auto.addDefault("Straight", new AutoStraight());
 		auto.addObject("Middle Switch", new MiddleSwitch(DriverStation.getInstance().getGameSpecificMessage()));
 		auto.addObject("Middle Scale", new MiddleScale(DriverStation.getInstance().getGameSpecificMessage()));
-		SmartDashboard.putData("Auto Modes1", auto);
+		SmartDashboard.putData("Auto Modes", auto);
 		// Starting position chooser
 		/*
 		 * stposChooser = new SendableChooser<>();
@@ -154,7 +154,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
-		// printData();
+		printData();
 	}
 
 	@Override
@@ -193,13 +193,11 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Right", speedr);
 
 		if (RobotMap.ultra.getRangeInches() < RobotMap.cubeProximity) {
-			// SmartDashboard.putString("Power Cube", "Loaded: " +
-			// RobotMap.ultra.getRangeInches());
-			SmartDashboard.putString("Power Cube", "Loaded");
+			SmartDashboard.putString("Power Cube", "Loaded: " + RobotMap.ultra.getRangeInches());
+			// SmartDashboard.putString("Power Cube", "Loaded");
 		} else {
-			// SmartDashboard.putString("Power Cube", "Not Loaded: " +
-			// RobotMap.ultra.getRangeInches());
-			SmartDashboard.putString("Power Cube", "Not Loaded");
+			SmartDashboard.putString("Power Cube", "Not Loaded: " + RobotMap.ultra.getRangeInches());
+			// SmartDashboard.putString("Power Cube", "Not Loaded");
 		}
 
 	}
