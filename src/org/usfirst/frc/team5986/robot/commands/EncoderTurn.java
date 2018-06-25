@@ -14,32 +14,55 @@ public class EncoderTurn extends Command {
 	double travelDisL;
 	private final double robotWidth = RobotMap.robotWidth;
 	boolean backMove;
+	boolean onlyOneSide;
 
-	public EncoderTurn(double degrees, double radius, boolean rightTurn, boolean reverse) {
+	public EncoderTurn(double degrees, double radius, boolean rightTurn, boolean reverse, boolean oneSide) {
 		requires(Robot.driveTrain);
 		backMove = reverse;
 		double degreePercent = degrees / 360; // pid
 		double robotWidthFt = robotWidth / 12;
+		onlyOneSide = oneSide;
 		if (rightTurn) {
-			travelDisL = 2 * Math.PI * (radius + (robotWidthFt / 2)) * degreePercent; // 23.5 7.4 addSequential(new
-																						// EncoderTurn(90, 1, true));
+			travelDisL = 2 * Math.PI * (radius + (robotWidthFt / 2)) * degreePercent;
+
 			travelDisR = 2 * Math.PI * (radius - (robotWidthFt / 2)) * degreePercent;
-			if (reverse) {
-				leftSpeed = -1;
-				rightSpeed = leftSpeed * (travelDisR / travelDisL);
+			if (!onlyOneSide) {
+				if (reverse) {
+					leftSpeed = -1;
+					rightSpeed = leftSpeed * (travelDisR / travelDisL);
+				} else {
+					leftSpeed = 1;
+					rightSpeed = leftSpeed * (travelDisR / travelDisL);
+				}
 			} else {
-				leftSpeed = 1;
-				rightSpeed = leftSpeed * (travelDisR / travelDisL);
+				if (reverse) {
+					leftSpeed = -1;
+					rightSpeed = 0;
+				} else {
+					leftSpeed = 1;
+					rightSpeed = 0;
+				}
 			}
 		} else {
 			travelDisL = 2 * Math.PI * (radius - (robotWidthFt / 2)) * degreePercent;
 			travelDisR = 2 * Math.PI * (radius + (robotWidthFt / 2)) * degreePercent;
-			if (reverse) {
-				rightSpeed = -1;
-				leftSpeed = rightSpeed * (travelDisL / travelDisR);
+			if (!onlyOneSide) {
+				if (reverse) {
+					rightSpeed = -1;
+					leftSpeed = rightSpeed * (travelDisL / travelDisR);
+				} else {
+					rightSpeed = 1;
+					leftSpeed = rightSpeed * (travelDisL / travelDisR);
+				}
 			} else {
-				rightSpeed = 1;
-				leftSpeed = rightSpeed * (travelDisL / travelDisR);
+				if (reverse) {
+					rightSpeed = -1;
+					leftSpeed = 0;
+				} else {
+					rightSpeed = 1;
+					leftSpeed = 0;
+				}
+
 			}
 		}
 		System.out.println("left dis" + travelDisL);

@@ -21,6 +21,8 @@ public class MoveUntilGetCube extends Command {
 	boolean hasCube = false;
 	int bucounter = 0;
 	int counter = 0;
+	int intakeCounter = 0;
+	int fastCounter = 0;
 	private final Ultrasonic proximity = RobotMap.ultra;
 
 	public MoveUntilGetCube(double speed, double returnSpeed) {
@@ -39,27 +41,58 @@ public class MoveUntilGetCube extends Command {
 	}
 
 	protected void execute() {
-		if ((proximity.getRangeInches() > RobotMap.cubeProximity && hasCube != true) || bucounter < 50) {
-			if (counter < 150) {
-				Robot.driveTrain.tankDrive(leftSpeed, rightSpeed);
-				counter++;
-			} else {
-				if (counter < 200) {
-					Robot.driveTrain.tankDrive(-leftSpeed * .7, -rightSpeed);
-					counter++;
+		if ((proximity.getRangeInches() > RobotMap.cubeProximity && hasCube != true) || bucounter < 25) {
+			if (intakeCounter < 50) {
+				if (fastCounter < 25) {
+					Robot.driveTrain.tankDrive(-1, -1);
+					fastCounter++;
 				} else {
-					counter = 0;
+					Robot.intake.speed(1);
+					if (counter < 6) { // NOSIDE specialty move lisp
+						// if (counter < 150) { //CURVE
+						// Robot.driveTrain.tankDrive(leftSpeed, rightSpeed * .75); //CURVE
+						Robot.driveTrain.tankDrive(leftSpeed, rightSpeed); // NOSIDE specialty move
+						counter++;
+					} else {
+						if (counter < 12) { // NOSIDE specialty move
+							// if (counter < 200) { //CURVE
+							// Robot.driveTrain.tankDrive(leftSpeed * .75, rightSpeed); //CURVE
+							Robot.driveTrain.tankDrive(leftSpeed / 2, rightSpeed / 2); // NOSIDE specialty move
+							counter++;
+						} else {
+							counter = 0;
+						}
+					}
+					intakeCounter++;
+				}
+			} else {
+				if (bucounter > 1) {
+					if (intakeCounter < 56) {
+						Robot.intake.speed(1);
+						intakeCounter++;
+					} else {
+						intakeCounter = 0;
+					}
+				} else {
+
+					if (intakeCounter < 56) {
+						Robot.intake.speed(-.5);
+						intakeCounter++;
+					} else {
+						intakeCounter = 0;
+					}
 				}
 			}
 			if (proximity.getRangeInches() > RobotMap.cubeProximity && hasCube != true) {
 
 			} else {
+				Robot.intake.speed(1);
 				bucounter++;
 			}
 		} else {
 			if (hasCube) {
 				if (Robot.driveTrain.getRightDistance() > startDistance) {
-					Robot.driveTrain.tankDrive(-leftRSpeed * .95, -rightRSpeed);
+					Robot.driveTrain.tankDrive(-leftRSpeed, -rightRSpeed);
 				} else {
 					done = true;
 				}

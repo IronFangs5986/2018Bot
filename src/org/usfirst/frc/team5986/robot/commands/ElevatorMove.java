@@ -10,8 +10,9 @@ public class ElevatorMove extends Command {
 	}
 
 	protected void execute() {
-		Robot.elevator.move(Robot.oi.joystick2.getY());
+		Robot.elevator.move(Robot.oi.joystick2.getY(), true);
 	}
+
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
