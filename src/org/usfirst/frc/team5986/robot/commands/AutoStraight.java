@@ -22,10 +22,12 @@ public class AutoStraight extends CommandGroup {
 		 */
 		// addParallel(new CloseClaw());
 		// addSequential(new EncoderStraightDrive(.7, 11, 0));
-		addParallel(new OpenClaw());
-		addParallel(new AutoIntake(.5));
-		addParallel(new IntakeDown());
-		addSequential(new MoveUntilGetCube(.7, 1));
 
+		// addParallel(new OpenClaw());
+		// addParallel(new AutoIntake(.5));
+		// addParallel(new IntakeDown());
+		// addSequential(new MoveUntilGetCube(.7, 1));
+		// addSequential(new EncoderTurn(20, 2.1, true, false, true));
+		addSequential(new AutoOneSideTurn(25, 2.1, false, false));
 	}
 }

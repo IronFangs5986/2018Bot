@@ -81,7 +81,7 @@ public class Robot extends IterativeRobot {
 		auto.addDefault("Straight", new AutoStraight());
 		auto.addObject("Middle Switch", new MiddleSwitch(DriverStation.getInstance().getGameSpecificMessage()));
 		auto.addObject("Middle Scale", new MiddleScale(DriverStation.getInstance().getGameSpecificMessage()));
-		SmartDashboard.putData("Auto Modes", auto);
+		SmartDashboard.putData("Auto Modes1", auto);
 		// Starting position chooser
 		/*
 		 * stposChooser = new SendableChooser<>();

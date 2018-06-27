@@ -76,7 +76,7 @@ public class MoveUntilGetCube extends Command {
 				} else {
 
 					if (intakeCounter < 56) {
-						Robot.intake.speed(-.5);
+						Robot.intake.speed(-.7);
 						intakeCounter++;
 					} else {
 						intakeCounter = 0;
