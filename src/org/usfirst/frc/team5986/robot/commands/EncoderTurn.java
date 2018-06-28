@@ -52,6 +52,7 @@ public class EncoderTurn extends Command {
 	}
 
 	protected void initialize() {
+		// Initialize
 		if (backMove) {
 			endDisL = Robot.driveTrain.getLeftDistance() - travelDisL;
 			endDisR = Robot.driveTrain.getRightDistance() - travelDisR;
@@ -61,6 +62,7 @@ public class EncoderTurn extends Command {
 		}
 		System.out.println("Left: " + Robot.driveTrain.getLeftDistance() + " " + endDisL);
 		System.out.println("Right: " + Robot.driveTrain.getRightDistance() + " " + endDisR);
+		// Initialize end
 	}
 
 	protected void execute() {
@@ -97,5 +99,9 @@ public class EncoderTurn extends Command {
 		onlyOneSide = false;
 		turnRight = false;
 		Robot.driveTrain.stop();
+	}
+
+	protected void interrupted() {
+		end();
 	}
 }

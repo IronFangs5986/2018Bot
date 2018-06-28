@@ -10,6 +10,7 @@ package org.usfirst.frc.team5986.robot;
 import org.usfirst.frc.team5986.robot.commands.AutoStraight;
 import org.usfirst.frc.team5986.robot.commands.MiddleScale;
 import org.usfirst.frc.team5986.robot.commands.MiddleSwitch;
+import org.usfirst.frc.team5986.robot.commands.SwitchRightAuto;
 import org.usfirst.frc.team5986.robot.subsystems.Claw;
 import org.usfirst.frc.team5986.robot.subsystems.Drive;
 import org.usfirst.frc.team5986.robot.subsystems.Elevator;
@@ -79,8 +80,9 @@ public class Robot extends IterativeRobot {
 		table.putStringArray("Auto List", autoList);
 		auto = new SendableChooser();
 		auto.addDefault("Straight", new AutoStraight());
-		auto.addObject("Middle Switch", new MiddleSwitch(DriverStation.getInstance().getGameSpecificMessage()));
+		auto.addObject("Middle Switch", new MiddleSwitch());
 		auto.addObject("Middle Scale", new MiddleScale(DriverStation.getInstance().getGameSpecificMessage()));
+		auto.addObject("Right Switch", new SwitchRightAuto());
 		SmartDashboard.putData("Auto Modes1", auto);
 		// Starting position chooser
 		/*
@@ -200,5 +202,10 @@ public class Robot extends IterativeRobot {
 			// SmartDashboard.putString("Power Cube", "Not Loaded");
 		}
 
+	}
+
+	public static String getGameData() {
+
+		return DriverStation.getInstance().getGameSpecificMessage();
 	}
 }

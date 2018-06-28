@@ -1,13 +1,16 @@
 package org.usfirst.frc.team5986.robot.commands;
 
+import org.usfirst.frc.team5986.robot.Robot;
+
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 
 public class MiddleSwitch extends CommandGroup {
 	int counter = 0;
 
-	public MiddleSwitch(String gameData) {
+	public MiddleSwitch() {
 		counter = 0;
+		String gameData = Robot.getGameData();
 		if (gameData.length() > 0) {
 			if (gameData.charAt(0) == 'L') {
 				System.out.println("Left switch");
@@ -28,8 +31,8 @@ public class MiddleSwitch extends CommandGroup {
 					addParallel(new ElevatorMoveBottom());
 					addParallel(new IntakeDown());
 					addParallel(new AutoIntake(1));
-					addSequential(new EncoderStraightDrive(-.75, 2, 8));
-					addSequential(new AutoOneSideTurn(48 * (counter + 1), 2.1, false, true));
+					addSequential(new EncoderStraightDrive(-.75, 2, 2));
+					addSequential(new AutoOneSideTurn(24 * (counter + 1), 2.1, false, true));
 					addSequential(new OpenClaw());
 					addSequential(new MoveUntilGetCube(1, .8));
 					// EXTRA
@@ -78,7 +81,7 @@ public class MiddleSwitch extends CommandGroup {
 					addSequential(new AutoIntake(-.7));
 					addSequential(new ElevatorMiddle(.8));
 					addParallel(new IntakeUp());
-					// addSequential(new EncoderTurn(45, 2.1, true, false, true));
+					addSequential(new EncoderTurn(45, 2.1, true, false, true));
 					addSequential(new EncoderStraightDrive(.75, 2, 0));
 
 					addSequential(new WaitCommand(.5));

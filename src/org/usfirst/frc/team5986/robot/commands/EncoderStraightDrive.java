@@ -16,18 +16,12 @@ public class EncoderStraightDrive extends Command {
 
 	public EncoderStraightDrive(double speed, double userFeet, double userInches) {
 		requires(Robot.driveTrain);
-		driveDistance = (userFeet + (userInches / 12));
 		if (speed < 0) {
 			forward = false;
 		} else {
 			forward = true;
 		}
-		botSpeed = -speed;
-		leftSpeed = botSpeed;
-		rightSpeed = botSpeed;
-	}
-
-	protected void initialize() {
+		// Initialize
 		if (forward) {
 			endDistance = Robot.driveTrain.getRightDistance() + driveDistance;
 		} else {
@@ -36,6 +30,24 @@ public class EncoderStraightDrive extends Command {
 		System.out.println(driveDistance);
 		System.out.println("Starting Distance: " + Robot.driveTrain.getRightDistance());
 		System.out.println("End Distance: " + endDistance);
+		// Initialize End
+		driveDistance = (userFeet + (userInches / 12));
+		botSpeed = -speed;
+		leftSpeed = botSpeed;
+		rightSpeed = botSpeed;
+	}
+
+	protected void initialize() {
+		// Initialize
+		if (forward) {
+			endDistance = Robot.driveTrain.getRightDistance() + driveDistance;
+		} else {
+			endDistance = Robot.driveTrain.getRightDistance() - driveDistance;
+		}
+		System.out.println(driveDistance);
+		System.out.println("Starting Distance: " + Robot.driveTrain.getRightDistance());
+		System.out.println("End Distance: " + endDistance);
+		// Initialize End
 	}
 
 	protected void execute() {
@@ -54,5 +66,9 @@ public class EncoderStraightDrive extends Command {
 
 	protected void end() {
 		Robot.driveTrain.stop();
+	}
+
+	protected void interrupted() {
+		end();
 	}
 }

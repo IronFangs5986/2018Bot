@@ -49,6 +49,7 @@ public class AutoOneSideTurn extends Command {
 	}
 
 	protected void initialize() {
+		// Initialize
 		if (backMove) {
 			endDisL = Robot.driveTrain.getLeftDistance() + travelDisL;
 			endDisR = Robot.driveTrain.getRightDistance() - travelDisR;
@@ -58,6 +59,8 @@ public class AutoOneSideTurn extends Command {
 		}
 		System.out.println("Left: " + Robot.driveTrain.getLeftDistance() + " " + endDisL);
 		System.out.println("Right: " + Robot.driveTrain.getRightDistance() + " " + endDisR);
+
+		// Initialize End
 	}
 
 	protected void execute() {
@@ -102,5 +105,9 @@ public class AutoOneSideTurn extends Command {
 		turnRight = false;
 
 		Robot.driveTrain.stop();
+	}
+
+	protected void interrupted() {
+		end();
 	}
 }
