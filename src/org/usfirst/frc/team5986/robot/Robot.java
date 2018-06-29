@@ -8,6 +8,7 @@
 package org.usfirst.frc.team5986.robot;
 
 import org.usfirst.frc.team5986.robot.commands.AutoStraight;
+import org.usfirst.frc.team5986.robot.commands.DoNothingAuto;
 import org.usfirst.frc.team5986.robot.commands.MiddleScale;
 import org.usfirst.frc.team5986.robot.commands.MiddleSwitch;
 import org.usfirst.frc.team5986.robot.commands.SwitchRightAuto;
@@ -79,7 +80,8 @@ public class Robot extends IterativeRobot {
 		NetworkTable table = NetworkTable.getTable("SmartDashboard");
 		table.putStringArray("Auto List", autoList);
 		auto = new SendableChooser();
-		auto.addDefault("Straight", new AutoStraight());
+		auto.addDefault("Do absolutely nothing like Mr. Horwath said", new DoNothingAuto());
+		auto.addObject("Straight", new AutoStraight());
 		auto.addObject("Middle Switch", new MiddleSwitch());
 		auto.addObject("Middle Scale", new MiddleScale(DriverStation.getInstance().getGameSpecificMessage()));
 		auto.addObject("Right Switch", new SwitchRightAuto());
