@@ -10,9 +10,16 @@ public class MiddleSwitch extends CommandGroup {
 
 	public MiddleSwitch() {
 		counter = 0;
-		String gameData = Robot.getGameData();
-		if (gameData.length() > 0) {
-			if (gameData.charAt(0) == 'L') {
+		/*
+		 * String gameData = null; System.out.println("Initialized Gamedata to null");
+		 * while (gameData == null) { System.out.println("Checking for game data");
+		 * gameData = Robot.getGameData(); } System.out.println("Got game data, it is "
+		 * + gameData);
+		 */
+		String localgameData = Robot.GameData;
+		if (localgameData.length() > 0) {
+			System.out.println("Checking the gamedata to see what to do.  localgamedata is " + localgameData);
+			if (localgameData.charAt(0) == 'L') {
 				System.out.println("Left switch");
 				addSequential(new IntakeDown());
 				addSequential(new WaitCommand(1));
@@ -54,7 +61,7 @@ public class MiddleSwitch extends CommandGroup {
 				}
 				counter = 0;
 				addSequential(new EncoderStraightDrive(-.7, 2, 0));
-			} else if (gameData.charAt(0) == 'R') {
+			} else if (localgameData.charAt(0) == 'R') {
 				addSequential(new IntakeDown());
 				addSequential(new WaitCommand(1));
 				addParallel(new CloseClaw());

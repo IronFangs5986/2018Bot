@@ -1,12 +1,17 @@
 package org.usfirst.frc.team5986.robot.commands;
 
+import org.usfirst.frc.team5986.robot.Robot;
+
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 
 public class MiddleScale extends CommandGroup {
 
-	public MiddleScale(String gameData) {
+	public MiddleScale() {
 		System.out.println("Ra");
+		String gameData = null;
+		while (gameData == null)
+			gameData = Robot.getGameData();
 		if (gameData.length() > 0) {
 			if (gameData.charAt(0) == 'L') {
 				System.out.println("Left scale autonomous");

@@ -55,11 +55,16 @@ public class Robot extends IterativeRobot {
 	// private SendableChooser<StartingPosition> stposChooser;
 	// private SendableChooser<Goal> goalChooser;
 	SendableChooser<Command> auto = new SendableChooser<>();
+	SendableChooser chooser = new SendableChooser<>();
+
+	private int mode = 0;
 
 	final String autoStraight = "Straight";
 	final String middleSwitch = "Middle Switch";
 	final String middleScale = "Middle Scale";
 	String[] autoList = { autoStraight, middleSwitch, middleScale };
+
+	public static String GameData = "UUU";
 
 	/**
 	 * This function is run when the robot is first started up and should be used
@@ -79,33 +84,23 @@ public class Robot extends IterativeRobot {
 
 		NetworkTable table = NetworkTable.getTable("SmartDashboard");
 		table.putStringArray("Auto List", autoList);
-		auto = new SendableChooser();
-		auto.addDefault("Do absolutely nothing like Mr. Horwath said", new DoNothingAuto());
-		auto.addObject("Straight", new AutoStraight());
-		auto.addObject("Middle Switch", new MiddleSwitch());
-		auto.addObject("Middle Scale", new MiddleScale(DriverStation.getInstance().getGameSpecificMessage()));
-		auto.addObject("Right Switch", new SwitchRightAuto());
-		SmartDashboard.putData("Auto Modes1", auto);
-		// Starting position chooser
-		/*
-		 * stposChooser = new SendableChooser<>();
-		 * stposChooser.setName("Starting Position:"); stposChooser.addDefault("Left",
-		 * StartingPosition.Left); stposChooser.addObject("Center",
-		 * StartingPosition.Center); stposChooser.addObject("Right",
-		 * StartingPosition.Right);
-		 * 
-		 * // Goal chooser /*goalChooser = new SendableChooser<>();
-		 * goalChooser.setName("Goal:"); goalChooser.addDefault("Nothing",
-		 * Goal.Nothing); goalChooser.addObject("Baseline", Goal.Baseline);
-		 * goalChooser.addObject("Switch", Goal.Switch); goalChooser.addObject("Scale",
-		 * Goal.Scale);
-		 */
+		// auto = new SendableChooser();
+		// auto.addDefault("Do absolutely nothing like Mr. Horwath said", new
+		// DoNothingAuto());
+		// auto.addObject("Straight", new AutoStraight());
+		// auto.addObject("Middle Switch", new MiddleSwitch());
+		// auto.addObject("Middle Scale", new MiddleScale());
+		// auto.addObject("Right Switch", new SwitchRightAuto());
+		// SmartDashboard.putData("Auto Modes1", auto);
 
-		// Put the choosers on the smart dashboard
-		// SmartDashboard.putData(stposChooser);
-		// SmartDashboard.putData(goalChooser);
-		// RobotMap.leftEncoder.start();
-		// RobotMap.rightEncoder.start();
+		chooser = new SendableChooser();
+		chooser.addDefault("Do absolutely nothing like Mr. Horwath said", 1);
+		chooser.addObject("Straight", 2);
+		chooser.addObject("Middle Switch", 3);
+		chooser.addObject("Middle Scale", 4);
+		chooser.addObject("Right Switch", 5);
+		SmartDashboard.putData("Automous Selector", chooser);
+		// Starting position chooser
 	}
 
 	/**
@@ -137,16 +132,29 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		// Grab the selected starting position and goal
-		// StartingPosition startingPosition = stposChooser.getSelected();
-		// Command goal = auto.getSelected();
 
-		// Use the selected st. pos. and goal to select an autonomous routine
-		// autoCommand = new AutonomousSelector(goal);
-
-		// Start the autonomous routine
-		// autoCommand.start();
-		autonomousCommand = (Command) auto.getSelected();
+		System.out.println("*\n*\nGOT DATA -1\n*\n*");
+		// while (GameData == "UUU" && GameData.charAt(0) == 'U' && GameData.charAt(1)
+		// == 'U'
+		// && GameData.charAt(2) == 'U') {
+		// System.out.println("*\n*\nATTEMPTING TO GET DATA\n*\n*");
+		// try {
+		// Thread.sleep(5);
+		GameData = DriverStation.getInstance().getGameSpecificMessage();
+		mode = (int) chooser.getSelected();
+		if (mode == 1) {
+			autonomousCommand = (Command) new DoNothingAuto();
+		} else if (mode == 2) {
+			autonomousCommand = (Command) new AutoStraight();
+		} else if (mode == 3) {
+			autonomousCommand = (Command) new MiddleSwitch();
+		} else if (mode == 4) {
+			autonomousCommand = (Command) new MiddleScale();
+		} else if (mode == 5) {
+			autonomousCommand = (Command) new SwitchRightAuto();
+		}
+		System.out.println(GameData);
+		// autonomousCommand = (Command) auto.getSelected();
 		if (autonomousCommand != null) {
 			autonomousCommand.start();
 		}
@@ -157,6 +165,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
+		// System.out.println("Running scheduled autonomous periodic");
 		Scheduler.getInstance().run();
 		printData();
 	}
