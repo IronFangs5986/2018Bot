@@ -4,16 +4,13 @@ import org.usfirst.frc.team5986.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ArcadeDrive extends Command {
-
-	public ArcadeDrive() {
+public class TankDrive extends Command {
+	public TankDrive() {
 		requires(Robot.driveTrain);
 	}
 
 	protected void execute() {
-		Robot.driveTrain.arcadeDrive(Robot.oi.joystick1);
-		// Robot.driveTrain.arcadeDrive(Robot.oi.joystick3.getRawAxis(1),
-		// Robot.oi.joystick3.getRawAxis(2));
+		// Robot.driveTrain.tankDrive(Robot.oi.joystick1);
 	}
 
 	@Override
@@ -21,5 +18,4 @@ public class ArcadeDrive extends Command {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
 }

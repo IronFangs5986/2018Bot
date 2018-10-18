@@ -48,13 +48,13 @@ public class MoveUntilGetCube extends Command {
 					fastCounter++;
 				} else {
 					Robot.intake.speed(1);
-					if (counter < 6) { // NOSIDE specialty move lisp
+					if (counter < 6) { // specialty move
 						// if (counter < 150) { //CURVE
 						// Robot.driveTrain.tankDrive(leftSpeed, rightSpeed * .75); //CURVE
 						Robot.driveTrain.tankDrive(leftSpeed, rightSpeed); // NOSIDE specialty move
 						counter++;
 					} else {
-						if (counter < 12) { // NOSIDE specialty move
+						if (counter < 12) { // specialty move
 							// if (counter < 200) { //CURVE
 							// Robot.driveTrain.tankDrive(leftSpeed * .75, rightSpeed); //CURVE
 							Robot.driveTrain.tankDrive(leftSpeed / 2, rightSpeed / 2); // NOSIDE specialty move

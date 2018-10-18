@@ -20,10 +20,11 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-	
+
 	public static Joystick joystick1;
 	public Joystick joystick2;
-	
+	public static Joystick joystick3;
+
 	public JoystickButton j1b1;
 	public JoystickButton j1b2;
 	public JoystickButton j1b3;
@@ -48,14 +49,17 @@ public class OI {
 	public JoystickButton j2b10;
 	public JoystickButton j2b11;
 	public JoystickButton j2b12;
-	
-	
+	public JoystickButton j3b1; // Trigger - Open/close
+	public JoystickButton j3b2; // Side -shift
+	public JoystickButton j3b11; // Intake Down
+	public JoystickButton j3b12; // Intake Up
+
 	public OI() {
-		
+
 		joystick2 = new Joystick(1);
 		joystick1 = new Joystick(0);
-		
-		
+		joystick3 = new Joystick(3);
+
 		j1b1 = new JoystickButton(joystick1, 1);
 		j1b2 = new JoystickButton(joystick1, 2);
 		j1b3 = new JoystickButton(joystick1, 3);
@@ -80,24 +84,38 @@ public class OI {
 		j2b10 = new JoystickButton(joystick2, 10);
 		j2b11 = new JoystickButton(joystick2, 11);
 		j2b12 = new JoystickButton(joystick2, 12);
-		
+		j3b1 = new JoystickButton(joystick3, 1);
+		j3b11 = new JoystickButton(joystick3, 11);
+		j3b12 = new JoystickButton(joystick3, 12);
+
 		j1b2.whenPressed(new OpenClaw());
 		j1b6.whenPressed(new OpenClaw());
 		j1b3.whenPressed(new CloseClaw());
 		j1b5.whenPressed(new CloseClaw());
 		j1b1.whenPressed(new IntakeDown());
 		j1b4.whenPressed(new IntakeUp());
+
+		j3b1.whenPressed(new OpenClaw());
+		j3b1.whenReleased(new CloseClaw());
+		j3b11.whenPressed(new IntakeDown());
+		j3b12.whenPressed(new IntakeUp());
+
+		// j1b8.whenPressed(new sendToArduino(42));
+		// j1b8.whenReleased(new sendToArduino(324));
 	}
+
 	public static Joystick getDriver() {
 		return joystick1;
 	}
-public double getIntakeSpeed() {
-	if (Math.abs(joystick1.getRawAxis(5)) > RobotMap.sensitivity) {
-		return -1.0 * (Math.abs(joystick1.getRawAxis(5)));
-	} else {
-		return 0.0;
+
+	public double getIntakeSpeed() {
+		if (Math.abs(joystick1.getRawAxis(5)) > RobotMap.sensitivity) {
+			return -1.0 * (Math.abs(joystick1.getRawAxis(5)));
+		} else {
+			return 0.0;
+		}
 	}
-}
+
 	public double getJoystick1X() {
 		if (Math.abs(joystick1.getX()) > RobotMap.sensitivity) {
 			return -1.0 * joystick1.getX();
@@ -113,7 +131,7 @@ public double getIntakeSpeed() {
 			return 0.0;
 		}
 	}
-	
+
 	public double getJoystick1Z() {
 		if (Math.abs(joystick1.getRawAxis(3)) > RobotMap.sensitivity) {
 			return -1.0 * (Math.abs(joystick1.getRawAxis(3)));
@@ -121,13 +139,11 @@ public double getIntakeSpeed() {
 			return 0.0;
 		}
 	}
-	
+
 	public Joystick getJoystick2() {
 		return joystick2;
 	}
 
-	
-	
 	//// CREATING BUTTONS
 	// One type of button is a joystick button which is any button on a
 	//// joystick.

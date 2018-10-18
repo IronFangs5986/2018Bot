@@ -126,7 +126,7 @@ public class RobotMap {
 		ultra.setAutomaticMode(true);
 		// Set up camera
 		UsbCamera server = CameraServer.getInstance().startAutomaticCapture();
-		server.setResolution(320, 240);
+		server.setResolution(160, 120);
 		server.setFPS(30);
 	}
 

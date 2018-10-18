@@ -19,6 +19,8 @@ import org.usfirst.frc.team5986.robot.subsystems.Intake;
 import org.usfirst.frc.team5986.robot.subsystems.IntakeDrop;
 import org.usfirst.frc.team5986.robot.subsystems.Shifters;
 
+import com.analog.adis16448.frc.ADIS16448_IMU;
+
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -54,17 +56,23 @@ public class Robot extends IterativeRobot {
 
 	// private SendableChooser<StartingPosition> stposChooser;
 	// private SendableChooser<Goal> goalChooser;
-	SendableChooser<Command> auto = new SendableChooser<>();
+	SendableChooser auto = new SendableChooser<>();
 	SendableChooser chooser = new SendableChooser<>();
+
+	NetworkTable table = NetworkTable.getTable("SmartDashboard");
 
 	private int mode = 0;
 
+	final String doNothing = "Do absolutely nothing like Mr. Horwath said";
 	final String autoStraight = "Straight";
 	final String middleSwitch = "Middle Switch";
 	final String middleScale = "Middle Scale";
-	String[] autoList = { autoStraight, middleSwitch, middleScale };
+	final String rightSwitch = "Right Switch";
+	String[] autoList = { doNothing, autoStraight, middleSwitch, middleScale, rightSwitch };
 
 	public static String GameData = "UUU";
+
+	public static final ADIS16448_IMU imu = new ADIS16448_IMU();
 
 	/**
 	 * This function is run when the robot is first started up and should be used
@@ -83,16 +91,16 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 
 		NetworkTable table = NetworkTable.getTable("SmartDashboard");
-		table.putStringArray("Auto List", autoList);
-		// auto = new SendableChooser();
-		// auto.addDefault("Do absolutely nothing like Mr. Horwath said", new
-		// DoNothingAuto());
-		// auto.addObject("Straight", new AutoStraight());
-		// auto.addObject("Middle Switch", new MiddleSwitch());
-		// auto.addObject("Middle Scale", new MiddleScale());
-		// auto.addObject("Right Switch", new SwitchRightAuto());
-		// SmartDashboard.putData("Auto Modes1", auto);
+		table.putStringArray("AutoList", autoList);
+		auto = new SendableChooser();
+		auto.addDefault("Do absolutely nothing like Mr. Horwath said", 1);
+		auto.addObject("Straight", 2);
+		auto.addObject("Middle Switch", 3);
+		auto.addObject("Middle Scale", 4);
+		auto.addObject("Right Switch", 5);
+		SmartDashboard.putData("automodes", auto);
 
+		// table.putValue("automodes", auto);
 		chooser = new SendableChooser();
 		chooser.addDefault("Do absolutely nothing like Mr. Horwath said", 1);
 		chooser.addObject("Straight", 2);
@@ -101,6 +109,8 @@ public class Robot extends IterativeRobot {
 		chooser.addObject("Right Switch", 5);
 		SmartDashboard.putData("Automous Selector", chooser);
 		// Starting position chooser
+
+		table.putNumber("autoSelected", 0);
 	}
 
 	/**
@@ -141,7 +151,9 @@ public class Robot extends IterativeRobot {
 		// try {
 		// Thread.sleep(5);
 		GameData = DriverStation.getInstance().getGameSpecificMessage();
-		mode = (int) chooser.getSelected();
+		// mode = (int) chooser.getSelected();
+		mode = (int) table.getNumber("autoSelected", 0) + 1;
+		System.out.println("*\n*\nMODE\n*\n*" + mode);
 		if (mode == 1) {
 			autonomousCommand = (Command) new DoNothingAuto();
 		} else if (mode == 2) {
@@ -212,7 +224,13 @@ public class Robot extends IterativeRobot {
 			SmartDashboard.putString("Power Cube", "Not Loaded: " + RobotMap.ultra.getRangeInches());
 			// SmartDashboard.putString("Power Cube", "Not Loaded");
 		}
+		SmartDashboard.putNumber("Gyro-X", imu.getAngleX());
+		SmartDashboard.putNumber("Gyro-Y", imu.getAngleY());
+		SmartDashboard.putNumber("Gyro-Z", imu.getAngleZ());
 
+		// table.putNumber("Gyro-X", imu.getAngleX());
+		table.putNumber("Gyro-Y", imu.getAngleY());
+		// table.putNumber("Gyro-X", imu.getAngleX());
 	}
 
 	public static String getGameData() {

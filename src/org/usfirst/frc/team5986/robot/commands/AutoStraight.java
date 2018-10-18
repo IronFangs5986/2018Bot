@@ -7,8 +7,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class AutoStraight extends CommandGroup {
 
 	public AutoStraight() {
-		System.out.println("RUNNING STRAIGHT");
-		System.out.flush();
+		// System.out.println("RUNNING STRAIGHT");
+		// System.out.flush();
 		addSequential(new CloseClaw());
 		String localgameData = Robot.GameData;
 		if (localgameData.length() > 0) {
@@ -16,11 +16,9 @@ public class AutoStraight extends CommandGroup {
 			if (localgameData.charAt(0) == 'L') {
 				addSequential(new EncoderStraightDrive(.75, 10, 0));
 			} else if (localgameData.charAt(0) == 'R') {
-				addSequential(new EncoderStraightDrive(-.75, 10, 0));
+				addSequential(new EncoderStraightDrive(.75, 10, 0));
 			}
 		} else {
-
-			addSequential(new IntakeDown());
 			System.out.println("GAMEDATA FROM AUTOSTRAIGHT");
 		}
 	}

@@ -1,19 +1,21 @@
 package org.usfirst.frc.team5986.robot.subsystems;
 
-import org.usfirst.frc.team5986.robot.Robot;
 import org.usfirst.frc.team5986.robot.RobotMap;
+import org.usfirst.frc.team5986.robot.commands.MoveIntake;
+
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import org.usfirst.frc.team5986.robot.commands.*;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class Intake extends Subsystem{
+public class Intake extends Subsystem {
 	private final WPI_TalonSRX inLeft = RobotMap.inLeft;
 	private final WPI_TalonSRX inRight = RobotMap.inRight;
 	private final double intakeDeadZone = RobotMap.intakeDeadZone;
 	private final double intakeMaxSpeed = RobotMap.intakeMaxSpeed;
-	//boolean elevatorIsMoving = Elevator.elevatorIsMoving;
-	double intakeSpeed;	
+	// boolean elevatorIsMoving = Elevator.elevatorIsMoving;
+	double intakeSpeed;
+	boolean newJoystick = false;
+
 	@Override
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
@@ -22,27 +24,35 @@ public class Intake extends Subsystem{
 
 	public void speed(double speed) {
 		boolean elevatorIsMoving = Elevator.isElevatorMoving();
-	if (elevatorIsMoving) {
-		intakeSpeed = .2;
-	} else {
-		if (Math.abs(speed) < intakeDeadZone) { // .3
-		intakeSpeed = 0;	
+		if (elevatorIsMoving) {
+			intakeSpeed = -.2;
 		} else {
-		
-			if (Math.abs(speed) > intakeMaxSpeed) { //.7
-				if (speed < 0) {
-					intakeSpeed = -intakeMaxSpeed;
+			if (!newJoystick) {
+				if (Math.abs(speed) < intakeDeadZone) { // .3
+					intakeSpeed = 0;
 				} else {
-					intakeSpeed = intakeMaxSpeed;
-				}		
+
+					if (Math.abs(speed) > intakeMaxSpeed) { // .7
+						if (speed < 0) {
+							intakeSpeed = -intakeMaxSpeed;
+						} else {
+							intakeSpeed = intakeMaxSpeed;
+						}
+					} else {
+						intakeSpeed = speed;
+					}
+				}
 			} else {
-			intakeSpeed = speed;
+				// New Joystick
+				if (speed > 0) {
+					intakeSpeed = 0;
+				} else {
+					intakeSpeed = -speed;
+				}
 			}
-		
-    }
-		
-	}
-	inLeft.set(intakeSpeed * -1);
-	inRight.set(intakeSpeed);
+
+		}
+		inLeft.set(intakeSpeed * -1);
+		inRight.set(intakeSpeed);
 	}
 }

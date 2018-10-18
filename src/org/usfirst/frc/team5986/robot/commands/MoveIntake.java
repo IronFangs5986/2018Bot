@@ -11,7 +11,10 @@ public class MoveIntake extends Command {
 
 	protected void execute() {
 		Robot.intake.speed(Robot.oi.joystick1.getRawAxis(5));
+		// Robot.intake.speed(Robot.oi.joystick3.getRawAxis(3));
+		// System.out.println(Robot.oi.joystick3.getRawAxis(3));
 	}
+
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub

@@ -28,7 +28,7 @@ public class Elevator extends Subsystem {
 		if (Robot.oi.joystick2.getRawButton(3)) {
 			elevatorSpeed = -.2;
 		} else {
-			if (Math.abs(speed) < elevatorDeadZone) {
+			if (Math.abs(speed) < elevatorDeadZone || speed > 0) {
 				elevatorSpeed = 0;
 				elevatorIsMoving = false;
 				/*
