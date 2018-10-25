@@ -13,6 +13,7 @@ public class EncoderStraightDrive extends Command {
 	double leftSpeed;
 	double rightSpeed;
 	boolean forward;
+	double startDistance;
 
 	public EncoderStraightDrive(double speed, double userFeet, double userInches) {
 		requires(Robot.driveTrain);
@@ -22,6 +23,7 @@ public class EncoderStraightDrive extends Command {
 			forward = true;
 		}
 		// Initialize
+		driveDistance = (userFeet + (userInches / 12));
 		if (forward) {
 			endDistance = Robot.driveTrain.getRightDistance() + driveDistance;
 		} else {
@@ -31,7 +33,6 @@ public class EncoderStraightDrive extends Command {
 		System.out.println("Starting Distance: " + Robot.driveTrain.getRightDistance());
 		System.out.println("End Distance: " + endDistance);
 		// Initialize End
-		driveDistance = (userFeet + (userInches / 12));
 		botSpeed = -speed;
 		leftSpeed = botSpeed;
 		rightSpeed = botSpeed;
@@ -44,6 +45,7 @@ public class EncoderStraightDrive extends Command {
 		} else {
 			endDistance = Robot.driveTrain.getRightDistance() - driveDistance;
 		}
+		startDistance = Robot.driveTrain.getRightDistance();
 		System.out.println(driveDistance);
 		System.out.println("Starting Distance: " + Robot.driveTrain.getRightDistance());
 		System.out.println("End Distance: " + endDistance);
@@ -51,7 +53,10 @@ public class EncoderStraightDrive extends Command {
 	}
 
 	protected void execute() {
-		Robot.driveTrain.tankDrive(leftSpeed, rightSpeed);
+		double current = Robot.driveTrain.getRightDistance() - startDistance;
+		System.out.println("Distance: " + Robot.driveTrain.getRightDistance());
+		Robot.driveTrain.tankDrive(getSpeed(current, driveDistance), getSpeed(current, driveDistance));
+		// Robot.driveTrain.tankDrive(leftSpeed, rightSpeed);
 	}
 
 	@Override
@@ -70,5 +75,13 @@ public class EncoderStraightDrive extends Command {
 
 	protected void interrupted() {
 		end();
+	}
+
+	private double getSpeed(double current, double total) {
+		double speed = (-1 / ((-1 - ((total - 1) / 2)) * (-1 - ((total - 1) / 2))));
+		speed = speed * (current - ((total - 1) / 2)) * (current - ((total - 1) / 2));
+		speed = speed + 1;
+		// System.out.println("***Speed: " + speed);
+		return speed * -2;
 	}
 }

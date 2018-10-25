@@ -229,8 +229,10 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Gyro-Z", imu.getAngleZ());
 
 		// table.putNumber("Gyro-X", imu.getAngleX());
-		table.putNumber("Gyro-Y", imu.getAngleY());
+		table.putNumber("Gyro-Y", imu.getAngleY() * -1);
+		table.putNumber("battery", DriverStation.getInstance().getBatteryVoltage());
 		// table.putNumber("Gyro-X", imu.getAngleX());
+		// System.out.println(DriverStation.getInstance().getBatteryVoltage());
 	}
 
 	public static String getGameData() {
