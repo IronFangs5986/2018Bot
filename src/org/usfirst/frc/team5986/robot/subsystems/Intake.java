@@ -6,6 +6,7 @@ import org.usfirst.frc.team5986.robot.commands.MoveIntake;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 public class Intake extends Subsystem {
 	private final WPI_TalonSRX inLeft = RobotMap.inLeft;
@@ -54,5 +55,6 @@ public class Intake extends Subsystem {
 		}
 		inLeft.set(intakeSpeed * -1);
 		inRight.set(intakeSpeed);
+		NetworkTable.getTable("SmartDashboard").putNumber("intakeSpeed", Math.abs(intakeSpeed));
 	}
 }

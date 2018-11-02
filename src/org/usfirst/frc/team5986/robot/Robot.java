@@ -111,6 +111,8 @@ public class Robot extends IterativeRobot {
 		// Starting position chooser
 
 		table.putNumber("autoSelected", 0);
+		printData();
+		defaultValues();
 	}
 
 	/**
@@ -218,11 +220,13 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Right", speedr);
 
 		if (RobotMap.ultra.getRangeInches() < RobotMap.cubeProximity) {
-			SmartDashboard.putString("Power Cube", "Loaded: " + RobotMap.ultra.getRangeInches());
-			// SmartDashboard.putString("Power Cube", "Loaded");
+			// SmartDashboard.putString("Power Cube", "Loaded: " +
+			// RobotMap.ultra.getRangeInches());
+			table.putString("PowerCube", "in");
 		} else {
-			SmartDashboard.putString("Power Cube", "Not Loaded: " + RobotMap.ultra.getRangeInches());
-			// SmartDashboard.putString("Power Cube", "Not Loaded");
+			// SmartDashboard.putString("Power Cube", "Not Loaded: " +
+			// RobotMap.ultra.getRangeInches());
+			table.putString("PowerCube", "out");
 		}
 		SmartDashboard.putNumber("Gyro-X", imu.getAngleX());
 		SmartDashboard.putNumber("Gyro-Y", imu.getAngleY());
@@ -231,8 +235,15 @@ public class Robot extends IterativeRobot {
 		// table.putNumber("Gyro-X", imu.getAngleX());
 		table.putNumber("Gyro-Y", imu.getAngleY() * -1);
 		table.putNumber("battery", DriverStation.getInstance().getBatteryVoltage());
+		table.putNumber("leftDist", -speedl);
+		table.putNumber("rightDist", speedr);
 		// table.putNumber("Gyro-X", imu.getAngleX());
-		// System.out.println(DriverStation.getInstance().getBatteryVoltage());
+		// System.out.println(RobotMap.ultra.getRangeInches());
+	}
+
+	private void defaultValues() {
+		NetworkTable.getTable("SmartDashboard").putString("intake", "up");
+		NetworkTable.getTable("SmartDashboard").putString("claw", "closed");
 	}
 
 	public static String getGameData() {

@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 public class Elevator extends Subsystem {
 	private final WPI_TalonSRX elevatorLeft = RobotMap.elevatorLeft;
@@ -46,6 +47,7 @@ public class Elevator extends Subsystem {
 		}
 		elevatorLeft.set(ControlMode.PercentOutput, elevatorSpeed);
 		elevatorRight.set(ControlMode.PercentOutput, elevatorSpeed * -1);
+		NetworkTable.getTable("SmartDashboard").putNumber("elevatorSpeed", Math.abs(elevatorSpeed));
 		// System.out.println("From elevator: "+elevatorIsMoving);
 	}
 

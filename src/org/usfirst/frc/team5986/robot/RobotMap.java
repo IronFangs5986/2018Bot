@@ -79,6 +79,8 @@ public class RobotMap {
 	public static final double cubeProximity = 5;
 	public static final double robotWidth = 15;
 
+	public static boolean intakeUp = true;
+
 	public static void init() {
 
 		FrontLeftMotor = new WPI_TalonSRX(2); // Define front left drive motor
