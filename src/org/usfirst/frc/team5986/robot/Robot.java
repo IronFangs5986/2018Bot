@@ -128,6 +128,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		printData();
 	}
 
 	/**
@@ -244,6 +245,7 @@ public class Robot extends IterativeRobot {
 	private void defaultValues() {
 		NetworkTable.getTable("SmartDashboard").putString("intake", "up");
 		NetworkTable.getTable("SmartDashboard").putString("claw", "closed");
+		NetworkTable.getTable("SmartDashboard").putNumber("elevatorMax", .9);
 	}
 
 	public static String getGameData() {

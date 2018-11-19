@@ -26,6 +26,8 @@ public class Elevator extends Subsystem {
 
 	public void move(double speed, boolean intake) {
 		useIntake = intake;
+		double maxSpeed = NetworkTable.getTable("SmartDashboard").getNumber("elevatorMax", 0);
+		System.out.println(maxSpeed);
 		if (Robot.oi.joystick2.getRawButton(3)) {
 			elevatorSpeed = -.2;
 		} else {
@@ -37,12 +39,17 @@ public class Elevator extends Subsystem {
 				 * intakeSpeedR = 0; }
 				 */
 			} else {
-				elevatorSpeed = speed;
-				System.out.println(elevatorSpeed);
+				if (Math.abs(speed) < maxSpeed) {
+					elevatorSpeed = speed;
+				} else {
+					if (speed < 0) {
+						elevatorSpeed = -maxSpeed;
+					} else {
+						elevatorSpeed = maxSpeed;
+					}
+				}
+				System.out.println("***" + elevatorSpeed);
 				elevatorIsMoving = true;
-				// intakeSpeedR = -.2;
-				// intakeSpeedL = .2;
-				// Robot.intake.speed(.2);
 			}
 		}
 		elevatorLeft.set(ControlMode.PercentOutput, elevatorSpeed);

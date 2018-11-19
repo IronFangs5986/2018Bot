@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Trajectory;
 import jaci.pathfinder.followers.EncoderFollower;
@@ -59,6 +60,8 @@ public class Drive extends Subsystem {
 
 	public void tankDrive(double leftSpeed, double rightSpeed) {
 		robotDrive.tankDrive(leftSpeed, rightSpeed);
+		NetworkTable.getTable("SmartDashboard").putNumber("leftSpeed", Math.abs(leftSpeed));
+		NetworkTable.getTable("SmartDashboard").putNumber("rightSpeed", Math.abs(rightSpeed));
 	}
 
 	public void stop() {
