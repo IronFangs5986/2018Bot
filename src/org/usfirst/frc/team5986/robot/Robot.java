@@ -240,12 +240,15 @@ public class Robot extends IterativeRobot {
 		table.putNumber("rightDist", speedr);
 		// table.putNumber("Gyro-X", imu.getAngleX());
 		// System.out.println(RobotMap.ultra.getRangeInches());
+		boolean safe = NetworkTable.getTable("SmartDashboard").getBoolean("switchOne", false);
+		System.out.println("Safe: " + safe);
 	}
 
 	private void defaultValues() {
 		NetworkTable.getTable("SmartDashboard").putString("intake", "up");
 		NetworkTable.getTable("SmartDashboard").putString("claw", "closed");
 		NetworkTable.getTable("SmartDashboard").putNumber("elevatorMax", .9);
+		NetworkTable.getTable("SmartDashboard").putNumber("intakeMax", .9);
 	}
 
 	public static String getGameData() {

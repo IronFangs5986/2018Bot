@@ -24,6 +24,7 @@ public class Intake extends Subsystem {
 	}
 
 	public void speed(double speed) {
+		double maxSpeed = NetworkTable.getTable("SmartDashboard").getNumber("intakeMax", 0);
 		boolean elevatorIsMoving = Elevator.isElevatorMoving();
 		if (elevatorIsMoving) {
 			intakeSpeed = -.2;
@@ -32,15 +33,19 @@ public class Intake extends Subsystem {
 				if (Math.abs(speed) < intakeDeadZone) { // .3
 					intakeSpeed = 0;
 				} else {
-
-					if (Math.abs(speed) > intakeMaxSpeed) { // .7
-						if (speed < 0) {
-							intakeSpeed = -intakeMaxSpeed;
-						} else {
-							intakeSpeed = intakeMaxSpeed;
-						}
+					if (Math.abs(speed) >= maxSpeed) {
+						intakeSpeed = -maxSpeed;
 					} else {
-						intakeSpeed = speed;
+
+						if (Math.abs(speed) > intakeMaxSpeed) { // .7
+							if (speed < 0) {
+								intakeSpeed = -intakeMaxSpeed;
+							} else {
+								intakeSpeed = intakeMaxSpeed;
+							}
+						} else {
+							intakeSpeed = speed;
+						}
 					}
 				}
 			} else {
